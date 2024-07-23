@@ -1,9 +1,10 @@
 We can setup and monitor system patching in AWS using AWS System Mmaager using a component called Patch Manager. 
 After setting up the Patch Policy where patches can be scheduled and automated. 
 
+Key metrics are "Configuration deployment status" that shows success, failure and pending are important.
+
 Monitoring patches 
+System Manager Patch Manager provides a dashboard that shows the success, failures and pending of deployed patches.
 
-System Manager Patch Manager provides a dashboard that shows the success and failures of deployed patches.
-
-Patches logs are stored in s3 
+Patches logs can be configure to push to s3 - and we can make use of AWS lambda to process those logs and push that into SNS for alerting and notifications.
 
