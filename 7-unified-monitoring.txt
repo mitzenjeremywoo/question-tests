@@ -1,0 +1,7 @@
+
+There are tech alternatives that can be considered which allows unified monitoring and alerting system.
+We can either from opens source tools like Prometheus or third party such as Dynatrace, Datadog. 
+Each have their own pro and cons.
+
+
+
