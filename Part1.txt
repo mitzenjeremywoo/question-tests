@@ -15,9 +15,14 @@ Having some understanding of how the app works would be good. Is the trottling c
 
 - Scale the metrics from 1 - 2 weeks, to see if this has been happening in the past 1 week. If not, then something must have changed recently. We need to figure out what changed on application side or infrastructure side. 
 
+- Use AWS and CloudWatch serivce lens to reveal service map or service dependencies for the apps. We need to see if dependencies might have something to do with this. 
+
 - If preliminary analysis didn't unravel anything, this could also be our first steps - it depends on situations.  we need to look into the application logs to see what is the nature of the failure. 
 
 If the nature of the issue is network related, then we can setup Network monitor for the VPC that this lambda application is tied to. 
+
+
+
 
 Resolution
 
