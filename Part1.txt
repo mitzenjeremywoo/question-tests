@@ -17,8 +17,7 @@ Having some understanding of how the app works would be good. Is the trottling c
 
 - If preliminary analysis didn't unravel anything, this could also be our first steps - it depends on situations.  we need to look into the application logs to see what is the nature of the failure. 
 
-If the nature of the issue is network related, then we 
-- Check the VPC logs 
+If the nature of the issue is network related, then we can setup Network monitor for the VPC that this lambda application is tied to. 
 
 Resolution
 
@@ -26,3 +25,6 @@ Resolution
 Communication
 
 Depending on the severity of the incident, raise a Production incident and setup a a group chat to get relevant team members into the call to determine the quickest and effective workaround - if an application hot fix cannot be released. 
+
+If it is a production issue, we need a person to coordinate and document these events as it happens. This can be useful for future improvements.
+
