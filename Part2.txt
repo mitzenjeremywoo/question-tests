@@ -1,0 +1,24 @@
+Scalable and highly available architecture 
+
+1. AWS cloudfront to front incoming traffic to the applications. 
+Offering high performance, low latency, regional aware request routing feature. 
+Optional feature: Adding cloudfront or Akamai to help with DDOS / bots attacks. 
+This help to improve security against unwanted requested.
+
+2. Setup a active/active cluster across 2 AWS region 
+namely Sydney and Melbourne. If any of the region is down, we can failover to another region.
+Other region besides Sydney and melbourne can be consider too.
+EC2 instance uses 
+AWS Autoscaling is used to scale instances based on current workload.
+
+3. Each AWS autoscaling are fronted by Application Load Balancer to 
+evenly distribute request to EC2 instances. It support TLS termination to simplify TLS integration in application.
+It also supports sticky session if required.
+
+4. Next application will be deployed and use shared service such as 
+SQL Server, SQS or KMS. These service are configure to be zone redundant 
+that allows continuation of service in case one service goes down in Melbourne for example. 
+
+5. Most importantly, application needs to be architected to be faulty tolerant 
+and resillent by implementing different types of cloud pattern such as circuit breaker, cache aside 
+and able to support transicnt failures or duplicate records in SQS. 

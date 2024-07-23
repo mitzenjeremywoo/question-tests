@@ -1,0 +1,38 @@
+Question 4.
+
+SELECT e.employee_id, e.first_name, e.sslast_name, d.department_name from employee e LEFT JOIN 
+department d on e.department_id = d.department_id WHERE e.hire_date > '2020-01-01' ORDER BY e.last_name
+
+Answer
+
+Issues
+
+This query will returns all record from employee table on top of those that matches the e.hire_date > '2020-01-01' criteria. 
+This lead to unnecessary retrieval of data. 
+
+
+Optimization
+---------------------------------------------------------------------------------------
+INNER JOIN 
+-----------
+
+Consider using INNER JOIN to retrieve ponly matched records
+
+SELECT e.employee_id, e.first_name, e.sslast_name, d.department_name from employee e INNER JOIN 
+department d on e.department_id = d.department_id WHERE e.hire_date > '2020-01-01' ORDER BY e.last_name
+
+With this query, only records that employees that matches the department_id would be retrieved. 
+
+
+Creting Non-clustered index
+----------------------------
+
+Create Non cluster Index based on Employee_Id, department_id and hire_date
+
+CREATE NONCLUSTERED INDEX Idx_Employee_EmployeeDeptHireDate on Employee (Employee_Id, department_id, hire_date)
+
+This index is optimized for the query above and hence should be faster with the cost of additional storage. 
+
+Side notes
+-------------------------------------------------------------
+Note: Always review SQL execution plan to see the results of performance optimization.
