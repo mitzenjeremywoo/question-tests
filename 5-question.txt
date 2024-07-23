@@ -8,3 +8,5 @@ System Manager Patch Manager provides a dashboard that shows the success, failur
 
 Patches logs can be configure to push to s3 - and we can make use of AWS lambda to process those logs and push that into SNS for alerting and notifications.
 
+Patch manager also supports Security Hub which provides security overview of resoures in AWS.
+
