@@ -2,19 +2,27 @@ When it comes to AWS Intermittent failure issues there can be many possbile reas
 First we need to figure out which component is failing. Let's say we have an application that is deployed to AWS lambda that is experiencing this issue. 
 
 Diagnosis steps
+
 1. Go to lambda's monitor and check the metrics. We are trying to find out a pattern for this intermittent issues and potentially support our root cause analysis. 
+
 - in cloudwatch metric check for "invocation" and "error count and success rate" and trottling. 
-  Having some understanding of how the app works would be good. Is the trottling causes timeout hence dropping the requests.
 
-- check memory consumption patterns - is the memory usage too high that causes application to be able to process certain while dropping the rest of the request - hence contributing to intermittent issue.
+Having some understanding of how the app works would be good. Is the trottling causes timeout hence dropping the requests.
 
-- check cpu consumption patterns  is the cpu usage too high that causes application to be able to process certain while dropping the rest of the request - hence contributing to intermittent issue.
+- In lambda insights - check memory consumption patterns - is the memory usage too high that causes application to be able to process certain while dropping the rest of the request - hence contributing to intermittent issue.
+
+- In lambda insights - check cpu consumption patterns  is the cpu usage too high that causes application to be able to process certain while dropping the rest of the request - hence contributing to intermittent issue.
 
 - Scale the metrics from 1 - 2 weeks, to see if this has been happening in the past 1 week. If not, then something must have changed recently. We need to figure out what changed on application side or infrastructure side. 
 
+- If preliminary analysis didn't unravel anything, this could also be our first steps - it depends on situations.  we need to look into the application logs to see what is the nature of the failure. 
 
+If the nature of the issue is network related, then we 
+- Check the VPC logs 
 
+Resolution
 
-Resolutions
 
 Communication
+
+Depending on the severity of the incident, raise a Production incident and setup a a group chat to get relevant team members into the call to determine the quickest and effective workaround - if an application hot fix cannot be released. 
