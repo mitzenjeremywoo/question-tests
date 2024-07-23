@@ -5,3 +5,5 @@ Monitoring patches
 
 System Manager Patch Manager provides a dashboard that shows the success and failures of deployed patches.
 
+Patches logs are stored in s3 
+
