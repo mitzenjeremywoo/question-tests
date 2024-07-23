@@ -1,0 +1,3 @@
+We can setup and monitor system patching in AWS using AWS System Mmaager using a component called Patch Manager. 
+After setting up the Patch Policy, 
+
