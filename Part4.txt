@@ -8,7 +8,7 @@ Answer
 Issues
 
 This query will returns all record from employee table on top of those that matches the e.hire_date > '2020-01-01' criteria. 
-This lead to unnecessary retrieval of data. 
+This lead to unnecessary retrieval of data from the employee table.
 
 
 Optimization
