@@ -3,7 +3,11 @@ First we need to figure out which component is failing. Let's say we have an app
 
 Diagnosis steps
 
-1. Go to lambda's monitor and check the metrics. We are trying to find out a pattern for this intermittent issues and potentially support our root cause analysis. 
+Application diagnosis 
+
+Go to lambda's monitor and cloudwatch logs, we need to look into the application logs to see what is the nature of the failure. 
+
+Then check the metrics. We are trying to find out a pattern for this intermittent issues and potentially support our root cause analysis. 
 
 - in cloudwatch metric check for "invocation" and "error count and success rate" and trottling. 
 
@@ -15,21 +19,29 @@ Having some understanding of how the app works would be good. Is the trottling c
 
 - Scale the metrics from 1 - 2 weeks, to see if this has been happening in the past 1 week. If not, then something must have changed recently. We need to figure out what changed on application side or infrastructure side. 
 
-- Use AWS and CloudWatch serivce lens to reveal service map or service dependencies for the apps. We need to see if dependencies might have something to do with this. 
+- Use AWS and CloudWatch serivce lens to reveal service map or service  inter-dependencies for the apps, so we have a clear idea of what we're dealing with, if it is a database, a service bus or a caching service. 
 
-- If preliminary analysis didn't unravel anything, this could also be our first steps - it depends on situations.  we need to look into the application logs to see what is the nature of the failure. 
+If application is working well, we can determine if the intermittent issue is caused by its dependencies. Start by going through the metrics say database - to see if it is accepting connection, has there been any downtime of database, any connection errors
 
-If the nature of the issue is network related, then we can setup Network monitor for the VPC that this lambda application is tied to. 
+If the application is integrating via external party for example, OIDC provider, then we need to see if there's any failure calling their endpoint. Failed calls could contribute to this intermittent failure issue above. 
 
 
+Network diagnosis
 
+If the nature of the issue is network related, then we can setup Network monitor for the VPC that this lambda application is tied to. Here we proceed to configure the source VPC and destination ip. From here, we can get a better understanding if the request is being routed over the network.
+
+If we're keep on getting NAT exhaustion issues - where application are being blocked from initiating connection to external parties, which causes the intermittent issue.
 
 Resolution
 
+In terms of resolution, it really depends on diagnosis above. If the issue is due to code, then can we rollback to previous version. This can be an expensive operations as we need to know what is the older changeset that we're deploying. Testing is required too to ensure we haven't break anything. 
+
+If it is a service dependencies issue, normally with AWS RDS Multi-Az, failover would normally be automatic. We can raise a ticket to AWS to for assistance. 
+
+If it is port exhaustion issue then we need to setup a NAT gateway.
 
 Communication
 
-Depending on the severity of the incident, raise a Production incident and setup a a group chat to get relevant team members into the call to determine the quickest and effective workaround - if an application hot fix cannot be released. 
+Depending on the severity of the incident, raise a Production incident and setup a group meeting and pull relevant team members into the call to determine the root cause. This team can often provide an effective workaround, if an application hot fix cannot be released.
 
-If it is a production issue, we need a person to coordinate and document these events as it happens. This can be useful for future improvements.
-
+In case this is a production issue, we need a person to coordinate and document these events as it happens. This can be useful for post morten analysis and set the stage for future improvements.
